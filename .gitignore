@@ -1,5 +1,6 @@
 # Project ignores
 php-app/vue-dist
+!php-app/vue-dist/.gitkeep
 
 
 # Created by .ignore support plugin (hsz.mobi)

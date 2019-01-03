@@ -1,10 +1,19 @@
 <?php
+
+// Ugly way of simulating a real php app that deals with
+// meta tags etc.
+
+
+// Reads the webpack output html and splits it from the #app
+// target, allowing to wrap php code around it.
+// Here we just wrap with mock header and footer
 ob_start();
 require_once "./vue-dist/index.html";
 $index_html = ob_get_clean();
 $split_html = explode('<div id=app></div>', $index_html);
 $top_html_part = $split_html[0];
 $bottom_html_part = $split_html[1];
+
 ?>
 
 <?= $top_html_part ?>

@@ -1,8 +1,19 @@
 RewriteEngine On
 
+# All checks are disabled for now, so we can test and see what the
+# prerenderer outputs
+
+# Checks if user is a crawler
 # RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator [NC,OR]
+
+# If the bot is using the deprecated ajax crawling proposal.
 # RewriteCond %{QUERY_STRING} _escaped_fragment_
 
+# Specific to this POC, proxies "non-static-file" requests to the prerenderer. 
+# The php-app has only one page, so this does not deal with urls
+# and it is just for docker for mac for now.
 RewriteRule ^(?!.*?(\.js|\.css|\.xml|\.less|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.doc|\.avi|\.ppt|\.mpg|\.mpeg|\.tif|\.wav|\.mov|\.psd|\.ai|\.xls|\.mp4|\.m4a|\.swf|\.dat|\.dmg|\.iso|\.flv|\.m4v|\.torrent|\.ttf|\.woff))(.*) http://docker.for.mac.localhost:3000/http://docker.for.mac.localhost:8081/ [P,L]
 
+# Loads all static files straight from the php-app, instead of prerenderer
+# This allows checking the site and having working styles
 RewriteRule ^(.*?(\.js|\.css|\.xml|\.less|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.doc|\.avi|\.ppt|\.mpg|\.mpeg|\.tif|\.wav|\.mov|\.psd|\.ai|\.xls|\.mp4|\.m4a|\.swf|\.dat|\.dmg|\.iso|\.flv|\.m4v|\.torrent|\.ttf|\.woff))(.*) http://docker.for.mac.localhost:8081/$1 [P,L]
