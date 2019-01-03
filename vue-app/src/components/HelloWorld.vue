@@ -80,12 +80,18 @@
         </a>
       </li>
     </ul>
+    <AsyncTitle />
   </div>
 </template>
 
 <script>
+import AsyncTitle from './AsyncTitle'
+
 export default {
   name: 'HelloWorld',
+  components: {
+    AsyncTitle
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
